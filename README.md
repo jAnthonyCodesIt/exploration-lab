@@ -1,4 +1,5 @@
-# hello-world
+# exploration-lab
+## hello-world
 This repository is for new web design ideas and for practicing things on the web. Color gradients/science, grids, navigation, server stuff, all of that plus more.
 
 
