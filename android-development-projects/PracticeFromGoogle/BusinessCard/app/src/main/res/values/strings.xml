@@ -3,4 +3,10 @@
     <string name="identity_description">Selfie of Jordan</string>
     <string name="identity_name">Jordan Glover</string>
     <string name="identity_title">Android Developer</string>
+    <string name="phone_contact">+14785421685</string>
+    <string name="phone_description_contact">Phone number of the card holder</string>
+    <string name="share_contact">\@jAnthony</string>
+    <string name="share_description_contact">Social media handle contact of the card holder</string>
+    <string name="email_contact">j.anthony.forward@gmail.com</string>
+    <string name="email_description_contact">Email of the card holder</string>
 </resources>
