@@ -1,4 +1,4 @@
-package udemy.android.practice0
+package udemy.android.dogprofilepage
 
 import org.junit.Test
 

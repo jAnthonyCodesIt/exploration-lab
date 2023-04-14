@@ -1,4 +1,4 @@
-package udemy.android.practice0.ui.theme
+package udemy.android.dogprofilepage.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
