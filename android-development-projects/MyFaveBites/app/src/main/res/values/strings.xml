@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MyFaveBites</string>
+    <string name="recipeImage">recipeImage</string>
+    <string name="recipeName">recipeName</string>
+    <string name="recipeTopInfoContainer">recipeTopInfoContainer</string>
+    <string name="recipeCuisine">recipeCuisine</string>
+    <string name="recipeDiet">recipeDiet</string>
+    <string name="recipeStatsContainer">recipeStats</string>
+    <string name="recipePrepTimeContainer">recipePrepTimeContainer</string>
+    <string name="recipeSkillLevelContainer">recipeSkillLevelContainer</string>
+    <string name="recipeDescriptionContainer">recipeDescriptionContainer</string>
+    <string name="recipeLoveButtonContainer">recipeLoveButtonContainer</string>
 </resources>
