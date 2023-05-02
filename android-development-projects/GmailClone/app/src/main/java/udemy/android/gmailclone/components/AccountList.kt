@@ -92,15 +92,15 @@ fun AccountItem(accountData: AccountData, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun AccountItemPreview() {
-    AccountItem(
-        AccountData(
-            icon = R.drawable.superdevsatlanta,
-            accountId = 0,
-            userName = "Super Devs Atlanta",
-            email = "superdevatlanta@atl.com",
-            unreadEmails = 50
-        )
-    )
+//    AccountItem(
+//        AccountData(
+//            icon = R.drawable.superdevsatlanta,
+//            accountId = 0,
+//            userName = "Super Devs Atlanta",
+//            email = "superdevatlanta@atl.com",
+//            unreadEmails = 50
+//        )
+//    )
     AccountItem(
         AccountData(
             accountId = 1,

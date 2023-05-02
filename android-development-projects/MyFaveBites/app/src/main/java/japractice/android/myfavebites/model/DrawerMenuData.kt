@@ -24,6 +24,15 @@ sealed class DrawerMenuData(
         title = "SKILL LEVEL"
     )
 
+    object Settings: DrawerMenuData(
+        icon = Icons.Outlined.Settings,
+        title = "Settings"
+    )
+    object Help: DrawerMenuData(
+        icon = Icons.Outlined.Help,
+        title = "Help"
+    )
+
     object LowSkillLevel: DrawerMenuData(
         icon = Icons.Outlined.Label,
         title = "Low"
@@ -77,23 +86,23 @@ sealed class DrawerMenuData(
         title = "South American"
     )
     object Spicy: DrawerMenuData(
-        icon = Icons.Outlined.Label,
+        icon = Icons.Outlined.LabelImportant,
         title = "Spicy"
     )
     object Sweet: DrawerMenuData(
-        icon = Icons.Outlined.Label,
+        icon = Icons.Outlined.LabelImportant,
         title = "Sweet"
     )
     object Sour: DrawerMenuData(
-        icon = Icons.Outlined.Label,
+        icon = Icons.Outlined.LabelImportant,
         title = "Sour"
     )
     object ComfortFood: DrawerMenuData(
-        icon = Icons.Outlined.Label,
+        icon = Icons.Outlined.LabelImportant,
         title = "Comfort Food"
     )
     object Healthy: DrawerMenuData(
-        icon = Icons.Outlined.Label,
+        icon = Icons.Outlined.LabelImportant,
         title = "Healthy"
     )
 }

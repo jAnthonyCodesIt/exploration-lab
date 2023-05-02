@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 //                    BiteProfilePage()
 //                }
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-
+                    MyFaveBitesApp()
                 }
             }
         }
@@ -50,18 +50,23 @@ fun MyFaveBitesApp() {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar =  {
+            // DONE
             HomeAppBar(scaffoldState, coroutineScope, openDialog, scrollState)
         },
         drawerContent = {
+            // DONE
             FaveBitesDrawerMenu(scrollState)
         },
         bottomBar = {
+            // DONE
             HomeBottomMenu()
         },
         floatingActionButton = {
+            // TODO Change icon depending on which home screen page you are on
             FaveBitesFab(scrollState)
         }
     ) {
+        // DONE
         FaveBitesList(it, scrollState)
     }
 }
@@ -69,7 +74,7 @@ fun MyFaveBitesApp() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MyFaveBitesTheme() {
+    MyFaveBitesTheme(true) {
 //        BiteProfilePage()
         MyFaveBitesApp()
     }

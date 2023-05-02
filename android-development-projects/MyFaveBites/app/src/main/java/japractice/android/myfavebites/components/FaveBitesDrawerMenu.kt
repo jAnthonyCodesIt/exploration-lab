@@ -45,7 +45,11 @@ fun FaveBitesDrawerMenu(scrollState: ScrollState) {
         DrawerMenuData.Sweet,
         DrawerMenuData.Sour,
         DrawerMenuData.ComfortFood,
-        DrawerMenuData.Healthy
+        DrawerMenuData.Healthy,
+
+        DrawerMenuData.Divider,
+        DrawerMenuData.Settings,
+        DrawerMenuData.Help
     )
 
     Column(
