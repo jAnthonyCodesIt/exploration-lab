@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import udemy.android.newsapp.ui.NewsApp
 import udemy.android.newsapp.ui.theme.NewsAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NewsAppTheme {
-
+                // A surface container using the 'background' color from the theme
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+                    NewsApp()
+                }
             }
         }
     }
@@ -27,6 +31,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     NewsAppTheme {
-
+        NewsApp()
     }
 }
