@@ -1,6 +1,6 @@
 package japractice.android.myfavebites.model
 
-class FaveBitesData(
+data class FaveBitesData(
     val faveBiteId: Int,
     val recipeName: String,
     val imageIcon: Int,

@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import japractice.android.myfavebites.model.FaveBitesData
 import japractice.android.myfavebites.ui.theme.MyFaveBitesTheme
 
 /*
@@ -39,7 +42,7 @@ import japractice.android.myfavebites.ui.theme.MyFaveBitesTheme
 * */
 
 @Composable
-fun BiteProfilePage() {
+fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
 
     // Tracks the number of faves you give this recipe
     var heartsState by remember {
@@ -399,9 +402,49 @@ private fun portraitConstraints(margin: Dp): ConstraintSet {
 @Composable
 fun BiteProfilePreview() {
     MyFaveBitesTheme(true) {
-        BiteProfilePage()
+        BiteProfilePage(
+            rememberNavController(),
+            FaveBitesData(
+                faveBiteId = 14,
+                recipeName = "Oatmeal Peanut Butter Cookies",
+                imageIcon = R.drawable.oatmeal_peanutbutter_cookies,
+                skillLevel = "Low",
+                prepTime = "25:00",
+                description = "Oatmeal peanut butter cookies are crunchy and nutty cookies made from oats, peanut butter, flour, sugar, butter, eggs, baking soda, and salt. " + "They are a satisfying and wholesome treat that can be enjoyed as a snack or dessert. " + "They are also rich in protein, fiber, and healthy fats, and can help lower your cholesterol and blood sugar levels.",
+                ingredients = listOf(
+                    "Oats",
+                    "Peanut butter",
+                    "Flour",
+                    "Sugar",
+                    "Butter",
+                    "Eggs",
+                    "Baking soda",
+                    "Salt"
+                )
+            )
+        )
     }
     MyFaveBitesTheme() {
-        BiteProfilePage()
+        BiteProfilePage(
+            rememberNavController(),
+            FaveBitesData(
+                faveBiteId = 14,
+                recipeName = "Oatmeal Peanut Butter Cookies",
+                imageIcon = R.drawable.oatmeal_peanutbutter_cookies,
+                skillLevel = "Low",
+                prepTime = "25:00",
+                description = "Oatmeal peanut butter cookies are crunchy and nutty cookies made from oats, peanut butter, flour, sugar, butter, eggs, baking soda, and salt. " + "They are a satisfying and wholesome treat that can be enjoyed as a snack or dessert. " + "They are also rich in protein, fiber, and healthy fats, and can help lower your cholesterol and blood sugar levels.",
+                ingredients = listOf(
+                    "Oats",
+                    "Peanut butter",
+                    "Flour",
+                    "Sugar",
+                    "Butter",
+                    "Eggs",
+                    "Baking soda",
+                    "Salt"
+                )
+            )
+        )
     }
 }

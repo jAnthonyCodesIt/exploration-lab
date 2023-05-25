@@ -20,12 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import japractice.android.myfavebites.R
-import japractice.android.myfavebites.data.faveBitesList
+import japractice.android.myfavebites.data.MockData.faveBitesList
 import japractice.android.myfavebites.model.FaveBitesData
 
 @Composable
-fun FaveBitesList(paddingValues: PaddingValues, scrollState: ScrollState) {
+fun FaveBitesList(paddingValues: PaddingValues, scrollState: ScrollState, navController: NavController) {
     Box(Modifier.padding(paddingValues)) {
         LazyColumn(
             Modifier.fillMaxSize()

@@ -2,27 +2,27 @@ package japractice.android.myfavebites.components
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import japractice.android.myfavebites.R
 import japractice.android.myfavebites.model.BottomMenuData
 
 @Composable
-fun HomeBottomMenu() {
+fun HomeBottomMenu(navController: NavController) {
     val homeActivities = listOf(
-        BottomMenuData.Recipes,
-        BottomMenuData.Gallery
+        BottomMenuData.Recipes, BottomMenuData.Gallery
     )
 
     BottomNavigation(
-        backgroundColor = MaterialTheme.colors.background,
-        contentColor = MaterialTheme.colors.onBackground
+        backgroundColor = MaterialTheme.colors.background, contentColor = MaterialTheme.colors.onBackground
     ) {
         homeActivities.forEach {
-            BottomNavigationItem(
-                label = { Text(it.title) },
-                alwaysShowLabel = true,
-                selected = false,
-                onClick = { /*TODO*/ },
-                icon = { Icon(imageVector = it.icon, contentDescription = it.title) }
-            )
+            BottomNavigationItem(label = { Text(it.title) }, alwaysShowLabel = true, selected = false, onClick = {
+                navController.navigate(
+                    // TODO: Make sure this doesn't break the whole app
+                    if (it.title == "Recipe Gallery") "RecipeGallery" else "FaveBitesList"
+                )
+            }, icon = { Icon(imageVector = it.icon, contentDescription = it.title) })
         }
     }
 }
