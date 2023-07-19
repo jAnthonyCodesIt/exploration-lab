@@ -7,5 +7,7 @@ data class FaveBitesData(
     val skillLevel: String,
     val prepTime: String,
     val description: String,
+    val dietType: String,
+    val cuisine: String,
     val ingredients: List<String>
 )

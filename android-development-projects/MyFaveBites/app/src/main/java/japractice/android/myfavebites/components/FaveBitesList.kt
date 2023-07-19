@@ -2,6 +2,7 @@ package japractice.android.myfavebites.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation.Vertical
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
@@ -34,7 +35,10 @@ fun FaveBitesList(paddingValues: PaddingValues, scrollState: ScrollState, navCon
                 .scrollable(scrollState, orientation = Vertical)
         ) {
             items(faveBitesList) {
-                faveBiteData -> FaveBiteItem(faveBiteData)
+                faveBiteData ->
+                FaveBiteItem(faveBiteData) {
+                    navController.navigate("RecipeDetailsPage/${faveBiteData.faveBiteId}")
+                }
             }
         }
     }
@@ -42,11 +46,14 @@ fun FaveBitesList(paddingValues: PaddingValues, scrollState: ScrollState, navCon
 
 // TODO Figure out why sizing isn't exactly right
 @Composable
-fun FaveBiteItem(faveBitesData: FaveBitesData, modifier: Modifier = Modifier) {
+fun FaveBiteItem(faveBitesData: FaveBitesData, modifier: Modifier = Modifier, onFaveBiteClick: ()-> Unit = {}) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp)
+            .clickable {
+                onFaveBiteClick()
+            }
     ) {
         Card(
             modifier = modifier
@@ -102,6 +109,8 @@ fun FaveBiteItemPreview() {
             description = "Tostones are a delicious and crispy Latin American treat made from fried green " +
                     "plantains. They offer a savory crunch and are a good source of fiber, vitamins, " +
                     "and minerals, including potassium, making them a guilt-free snack choice.",
+            dietType = "Vegetarian",
+            cuisine = "Caribbean",
             ingredients = listOf(
                 "Plantains",
                 "Olive oil",

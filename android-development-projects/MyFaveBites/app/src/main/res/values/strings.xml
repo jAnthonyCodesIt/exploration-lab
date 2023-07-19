@@ -10,4 +10,5 @@
     <string name="recipeSkillLevelContainer">recipeSkillLevelContainer</string>
     <string name="recipeDescriptionContainer">recipeDescriptionContainer</string>
     <string name="recipeLoveButtonContainer">recipeLoveButtonContainer</string>
+    <string name="biteProfilePageCard">biteProfilePageCard</string>
 </resources>

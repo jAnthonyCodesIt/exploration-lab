@@ -29,12 +29,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import japractice.android.myfavebites.model.FaveBitesData
 import japractice.android.myfavebites.ui.theme.MyFaveBitesTheme
+
 
 /*
 * Profile for each favorite "Bite"!
@@ -59,7 +61,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
         Card(
             elevation = 12.dp,
             modifier = Modifier.fillMaxSize()
-                .padding(20.dp, 10.dp)
+                .padding(20.dp)
         ) {
             BoxWithConstraints {
                 val constraints = if (minWidth < 600.dp) {
@@ -85,8 +87,8 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                             .layoutId(R.string.recipeImage)
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.tostones),
-                            contentDescription = "Tostones",
+                            painter = painterResource(recipeData.imageIcon),
+                            contentDescription = recipeData.recipeName,
                             modifier = Modifier
                                 .clip(CircleShape),
                             contentScale = ContentScale.FillBounds,
@@ -100,6 +102,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                         modifier = Modifier
                             .padding(10.dp, 10.dp)
                             .layoutId(R.string.recipeTopInfoContainer)
+                            .fillMaxWidth(.5f)
                     ) {
                         Column(
                             horizontalAlignment = Alignment.Start,
@@ -109,7 +112,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
 
                         ) {
                             Text(
-                                text = "Tostones",
+                                text = recipeData.recipeName,
                                 style = TextStyle(
                                     fontSize = 25.sp,
                                     fontWeight = FontWeight.Bold,
@@ -118,7 +121,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                 )
                             ) // Fave Bite name
                             Text(
-                                text = "Vegetarian",
+                                text = recipeData.dietType,
                                 style = TextStyle(
                                     fontSize = 23.sp,
 //                            fontWeight = FontWeight.Bold,
@@ -128,7 +131,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                 )
                             ) // Diet type
                             Text(
-                                text = "Caribbean",
+                                text = recipeData.cuisine,
                                 style = TextStyle(
                                     fontSize = 20.sp,
 //                            fontWeight = FontWeight.Bold,
@@ -171,7 +174,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                     )
                                 )  // Prep time label
                                 Text(
-                                    text = "12 min.",
+                                    text = "${recipeData.prepTime} min.",
                                     style = TextStyle(
                                         fontSize = 20.sp,
                                         fontFamily = FontFamily.Monospace,
@@ -194,7 +197,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                     )
                                 ) // Skill level label
                                 Text(
-                                    text = "Low",
+                                    text = recipeData.skillLevel,
                                     style = TextStyle(
                                         fontSize = 20.sp,
                                         fontFamily = FontFamily.Monospace,
@@ -231,9 +234,7 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                     ),
                                 ) // Description header
                                 Text(
-                                    text = "Tostones are a delicious and crispy Latin American treat made from fried green " +
-                                            "plantains. They offer a savory crunch and are a good source of fiber, vitamins, " +
-                                            "and minerals, including potassium, making them a guilt-free snack choice.",
+                                    text = recipeData.description,
                                     style = TextStyle(
                                         fontSize = 18.sp,
                                         fontFamily = FontFamily.Monospace
@@ -252,13 +253,14 @@ fun BiteProfilePage(navController: NavController, recipeData: FaveBitesData) {
                                         fontFamily = FontFamily.Monospace
                                     )
                                 ) // Ingredients header
+                                // Create ingredient list
+                                var ingredientList = "";
+                                recipeData.ingredients.forEach {
+                                    ingredientList += "${"\u2022"} $it\n"
+                                }
                                 Text(
-                                    text = """
-                                 ${"\u2022"} Plantains
-                                 ${"\u2022"} Olive oil
-                                 ${"\u2022"} Water
-                                 ${"\u2022"} Salt
-                            """.trimIndent(),
+                                    // TODO: Check if this works
+                                    text = ingredientList,
                                     style = TextStyle(
                                         fontSize = 18.sp,
                                         fontFamily = FontFamily.Monospace
@@ -381,9 +383,10 @@ private fun portraitConstraints(margin: Dp): ConstraintSet {
             top.linkTo(parent.top, margin)
             start.linkTo(recipeImage.end)
             end.linkTo(recipeStatsContainer.end)
+            bottom.linkTo(recipeStatsContainer.top)
         }
         constrain(recipeStatsContainer) {
-            top.linkTo(recipeImage.bottom)
+            top.linkTo(recipeTopInfoContainer.bottom)
             start.linkTo(parent.start)
         }
         constrain(recipeDescriptionContainer) {
@@ -393,7 +396,8 @@ private fun portraitConstraints(margin: Dp): ConstraintSet {
         constrain(recipeLoveButtonContainer) {
             top.linkTo(recipeDescriptionContainer.bottom, margin)
             start.linkTo(parent.start)
-            bottom.linkTo(parent.bottom)
+            // TODO: See if adding weight to the Card instead works better
+            bottom.linkTo(parent.bottom, 80.dp)
         }
     }
 }
@@ -411,6 +415,8 @@ fun BiteProfilePreview() {
                 skillLevel = "Low",
                 prepTime = "25:00",
                 description = "Oatmeal peanut butter cookies are crunchy and nutty cookies made from oats, peanut butter, flour, sugar, butter, eggs, baking soda, and salt. " + "They are a satisfying and wholesome treat that can be enjoyed as a snack or dessert. " + "They are also rich in protein, fiber, and healthy fats, and can help lower your cholesterol and blood sugar levels.",
+                dietType = "Vegetarian",
+                cuisine = "Jordan Favorite",
                 ingredients = listOf(
                     "Oats",
                     "Peanut butter",
@@ -434,6 +440,8 @@ fun BiteProfilePreview() {
                 skillLevel = "Low",
                 prepTime = "25:00",
                 description = "Oatmeal peanut butter cookies are crunchy and nutty cookies made from oats, peanut butter, flour, sugar, butter, eggs, baking soda, and salt. " + "They are a satisfying and wholesome treat that can be enjoyed as a snack or dessert. " + "They are also rich in protein, fiber, and healthy fats, and can help lower your cholesterol and blood sugar levels.",
+                dietType = "Vegetarian",
+                cuisine = "Jordan Favorite",
                 ingredients = listOf(
                     "Oats",
                     "Peanut butter",

@@ -70,7 +70,7 @@ fun MyFaveBitesApp() {
             FaveBitesDrawerMenu(scrollState)
         },
         bottomBar = {
-            // DONE
+            // TODO: Create some kind of top margin or padding so BiteProfilePage can be seen in whole.
             HomeBottomMenu(navController)
         },
         floatingActionButton = {
@@ -83,13 +83,8 @@ fun MyFaveBitesApp() {
             composable("FaveBitesList") {
                 FaveBitesList(innerPaddingModifier, scrollState, navController)
             }
-            composable("RecipeGallery/{recipeId}",
-                arguments = listOf(navArgument("recipeId"){type = NavType.IntType})
-            ) {
-                navBackStackEntry ->
-                val id = navBackStackEntry.arguments?.getInt("recipeId")
-                val recipeData = MockData.getRecipes(id)
-                RecipeGalleryPage(navController, recipeData)
+            composable("RecipeGallery") {
+                RecipeGalleryPage(innerPaddingModifier, scrollState, navController)
             }
             composable("RecipeDetailsPage/{recipeId}",
                 arguments = listOf(navArgument("recipeId"){type = NavType.IntType})

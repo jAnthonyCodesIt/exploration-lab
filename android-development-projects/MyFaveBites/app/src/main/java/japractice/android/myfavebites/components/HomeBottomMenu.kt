@@ -2,10 +2,12 @@ package japractice.android.myfavebites.components
 
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier.Companion
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import japractice.android.myfavebites.R
 import japractice.android.myfavebites.model.BottomMenuData
+import androidx.compose.ui.Modifier
 
 @Composable
 fun HomeBottomMenu(navController: NavController) {
