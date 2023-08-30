@@ -1,4 +1,4 @@
-package udemy.android.newsapp.components
+package udemy.android.newsapp.ui.components
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem

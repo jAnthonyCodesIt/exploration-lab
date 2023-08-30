@@ -7,14 +7,14 @@ import udemy.android.newsapp.models.TopNewsResponse
 
 interface NewsService {
     @GET("top-headlines")
-    fun getTopNews(@Query("country") country: String): Call<TopNewsResponse>
+    suspend fun getTopNews(@Query("country") country: String): TopNewsResponse
 
     @GET("top-headlines")
-    fun getArticlesByCategory(@Query("country") country: String, @Query("category") category: String): Call<TopNewsResponse>
+    suspend fun getArticlesByCategory(@Query("country") country: String, @Query("category") category: String): TopNewsResponse
 
     @GET("everything")
-    fun getArticlesBySources(@Query("sources") source: String): Call<TopNewsResponse>
+    suspend fun getArticlesBySources(@Query("sources") source: String): TopNewsResponse
 
     @GET("everything")
-    fun getArticles(@Query("q") query: String): Call<TopNewsResponse>
+    suspend fun getArticles(@Query("q") query: String): TopNewsResponse
 }

@@ -28,11 +28,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import udemy.android.newsapp.R
 import udemy.android.newsapp.models.TopNewsArticle
-import udemy.android.newsapp.network.NewsManager
+import udemy.android.newsapp.ui.MainViewModel
+import udemy.android.newsapp.ui.components.ErrorUI
+import udemy.android.newsapp.ui.components.LoadingUI
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Sources(newsManager: NewsManager) {
+fun Sources(viewModel: MainViewModel, isLoading: MutableState<Boolean>, isError: MutableState<Boolean>) {
 
     val items = listOf(
         "TechCrunch" to "techcrunch",
@@ -45,7 +47,7 @@ fun Sources(newsManager: NewsManager) {
 
     Scaffold(topBar = {
         TopAppBar(title = {
-            Text(text = "${newsManager.sourceName.value} Sources")
+            Text(text = "${viewModel.sourceName.collectAsState().value} Sources")
         }, actions = {
             var menuExpanded by remember { mutableStateOf(false) }
             IconButton(onClick = { menuExpanded = !menuExpanded }) {
@@ -55,7 +57,8 @@ fun Sources(newsManager: NewsManager) {
                 DropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }) {
                     items.forEach {
                         DropdownMenuItem(onClick = {
-                            newsManager.sourceName.value = it.second
+                            viewModel.sourceName.value = it.second
+                            viewModel.getArticleBySource()
                             menuExpanded = false
                         }) {
                             Text(it.first)
@@ -65,9 +68,21 @@ fun Sources(newsManager: NewsManager) {
             }
         })
     }) {
-        newsManager.getArticlesBySource()
-        val articles = newsManager.getArticleBySource.value
-        SourceContent(articles = articles.articles ?: listOf())
+        when {
+            isLoading.value -> {
+                LoadingUI()
+            }
+
+            isError.value -> {
+                ErrorUI()
+            }
+
+            else -> {
+                viewModel.getArticleBySource()
+                val articles = viewModel.getArticlesBySource.collectAsState().value
+                SourceContent(articles = articles.articles ?: listOf())
+            }
+        }
     }
 }
 
@@ -91,9 +106,14 @@ fun SourceContent(articles: List<TopNewsArticle>) {
                     append("Read Full Article Here")
                 }
             }
-            Card(backgroundColor = colorResource(id = R.color.purple_700),
-                elevation = 6.dp, modifier = Modifier.padding(8.dp)) {
-                Column(modifier = Modifier.height(200.dp).padding(end = 8.dp, start = 8.dp), verticalArrangement = Arrangement.SpaceEvenly) {
+            Card(
+                backgroundColor = colorResource(id = R.color.purple_700),
+                elevation = 6.dp, modifier = Modifier.padding(8.dp)
+            ) {
+                Column(
+                    modifier = Modifier.height(200.dp).padding(end = 8.dp, start = 8.dp),
+                    verticalArrangement = Arrangement.SpaceEvenly
+                ) {
                     Text(
                         text = article.title ?: "Not Available",
                         fontWeight = FontWeight.Bold,
@@ -108,8 +128,7 @@ fun SourceContent(articles: List<TopNewsArticle>) {
 
                     Card(backgroundColor = Color.White, elevation = 6.dp) {
                         ClickableText(text = annotatedString, modifier = Modifier.padding(8.dp), onClick = {
-                            annotatedString.getStringAnnotations(it, it).firstOrNull()?.let {
-                                result ->
+                            annotatedString.getStringAnnotations(it, it).firstOrNull()?.let { result ->
                                 if (result.tag == "URL") {
                                     uriHandler.openUri(result.item)
                                 }
